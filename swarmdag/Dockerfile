@@ -31,7 +31,8 @@ WORKDIR $TMHOME
 EXPOSE 26656 26657
 
 ENTRYPOINT ["/usr/bin/tendermint"]
-CMD ["node", "--moniker=`hostname`"]
+#TODO: init gensis file before running proxy app
+CMD ["node", "--proxy_app=kvstore"]
 STOPSIGNAL SIGTERM
 
 ARG BINARY=tendermint

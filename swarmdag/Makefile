@@ -1,7 +1,7 @@
 build:
-	docker build -t "ANRGUSC/swarmdag" .
+	docker build -t "anrgusc/swarmdag" .
 
 push:
-	docker push "ANRGUSC/swarmdag"
+	docker push "anrgusc/swarmdag"
 
 .PHONY: build push
