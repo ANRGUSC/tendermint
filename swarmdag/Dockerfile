@@ -30,7 +30,7 @@ WORKDIR $TMHOME
 # p2p and rpc port
 EXPOSE 26656 26657
 
-ENTRYPOINT ["/usr/bin/tendermint"]
+# ENTRYPOINT ["/usr/bin/tendermint"]
 #TODO: init gensis file before running proxy app
 CMD ["node", "--proxy_app=kvstore"]
 STOPSIGNAL SIGTERM
