@@ -4,7 +4,7 @@
 ## Input parameters
 ##
 # BINARY=/tendermint/${BINARY:-tendermint}
-ID=${ID:-0}
+# ID=${ID:-0}
 LOG=${LOG:-tendermint.log}
 
 ##
@@ -29,8 +29,8 @@ export TMHOME="/tendermint/node${ID}"
 if [ -d "`dirname ${TMHOME}/${LOG}`" ]; then
   tendermint "$@" | tee "${TMHOME}/${LOG}"
 else
+  echo $ID
   tendermint "$@"
 fi
 
 chmod 777 -R /tendermint
-

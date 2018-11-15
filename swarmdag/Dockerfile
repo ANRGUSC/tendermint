@@ -1,5 +1,5 @@
 FROM alpine:3.7
-MAINTAINER Greg Szabo <greg@tendermint.com>
+MAINTAINER Jason Tran <jasontra@usc.edu>
 
 # Tendermint will be looking for the genesis file in /tendermint/config/genesis.json
 # (unless you change `genesis_file` in config.toml). You can put your config.toml and
@@ -20,12 +20,15 @@ RUN apk update && \
     adduser -S -G tmuser tmuser -h "$TMHOME"
 
 # Run the container with tmuser by default. (UID=100, GID=1000)
-USER tmuser
+# USER root
 
 # Expose the data directory as a volume since there's mutable state in there
 VOLUME [ $TMHOME ]
 
 WORKDIR $TMHOME
+
+COPY wrapper.sh /usr/bin/wrapper.sh
+RUN chmod 777 -R /tendermint
 
 # p2p and rpc port
 EXPOSE 26656 26657
@@ -37,4 +40,3 @@ STOPSIGNAL SIGTERM
 
 ARG BINARY=tendermint
 COPY $BINARY /usr/bin/tendermint
-COPY wrapper.sh /usr/bin/wrapper.sh

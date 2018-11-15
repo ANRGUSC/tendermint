@@ -1,54 +1,42 @@
 containers:
   c1:
     image: anrg/swarmdag
-    volumes: {"./build": "/tendermint:Z"}
+    volumes: {"./build": "/tendermint"}
     expose: [26656, 26657]
-    ports:
-      {26656: 26656, 26657: 26657}
     environment: 
-      "ID": 0
+      #for some reason 0 without quotes doesn't work
+      "ID": "0"
       "LOG": "${LOG:-tendermint.log}"
-
-    command: /bin/sleep 300000
 
   c2:
     image: anrg/swarmdag
-    volumes: {"./build": "/tendermint:Z"}
+    volumes: {"./build": "/tendermint"}
     expose: [26656, 26657]
     # links:
     #   c1: master
-    ports:
-      {26656: 26656, 26657: 26657}
     environment: 
       "ID": 1
       "LOG": "${LOG:-tendermint.log}"
-    command: /bin/sleep 300000
 
-  c3:
-    image: anrg/swarmdag
-    volumes: {"./build": "/tendermint:Z"}
-    expose: [26656, 26657]
-    # links:
-    #   c1: master
-    ports:
-      {26656: 26656, 26657: 26657}
-    environment: 
-      "ID": 2
-      "LOG": "${LOG:-tendermint.log}"
-    command: /bin/sleep 300000
+  # c3:
+  #   image: anrg/swarmdag
+  #   volumes: {"./build": "/tendermint"}
+  #   expose: [26656, 26657]
+  #   # links:
+  #   #   c1: master
+  #   environment: 
+  #     "ID": 2
+  #     "LOG": "${LOG:-tendermint.log}"
 
-  c4:
-    image: anrg/swarmdag
-    volumes: {"./build": "/tendermint:Z"}
-    expose: [26656, 26657]
-    # links:
-    #   c1: master
-    ports:
-      {26656: 26656, 26657: 26657}
-    environment: 
-      "ID": 3
-      "LOG": "${LOG:-tendermint.log}"
-    command: /bin/sleep 300000
+  # c4:
+  #   image: anrg/swarmdag
+  #   volumes: {"./build": "/tendermint"}
+  #   expose: [26656, 26657]
+  #   # links:
+  #   #   c1: master
+  #   environment: 
+  #     "ID": 3
+  #     "LOG": "${LOG:-tendermint.log}"
 
 network:
   flaky: 30%
