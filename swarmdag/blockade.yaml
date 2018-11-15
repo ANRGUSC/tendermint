@@ -1,27 +1,54 @@
 containers:
   c1:
     image: anrg/swarmdag
-    # expose: [26656, 26657]
-    environment:
-      "IS_MASTER": 1
+    volumes: {"./build": "/tendermint:Z"}
+    expose: [26656, 26657]
     ports:
       {26656: 26656, 26657: 26657}
+    environment: 
+      "ID": 0
+      "LOG": "${LOG:-tendermint.log}"
+
+    command: /bin/sleep 300000
 
   c2:
     image: anrg/swarmdag
-    # expose: [26656, 26657]
+    volumes: {"./build": "/tendermint:Z"}
+    expose: [26656, 26657]
     # links:
     #   c1: master
     ports:
-      {26658: 26656, 26659: 26657}
+      {26656: 26656, 26657: 26657}
+    environment: 
+      "ID": 1
+      "LOG": "${LOG:-tendermint.log}"
+    command: /bin/sleep 300000
 
-  # c3:
-  #   image: anrg/swarmdag
-  #   # expose: [80]
-  #   links:
-  #     c1: master
-  #   ports:
-  #     {26660: 26656, 26661: 26657}
+  c3:
+    image: anrg/swarmdag
+    volumes: {"./build": "/tendermint:Z"}
+    expose: [26656, 26657]
+    # links:
+    #   c1: master
+    ports:
+      {26656: 26656, 26657: 26657}
+    environment: 
+      "ID": 2
+      "LOG": "${LOG:-tendermint.log}"
+    command: /bin/sleep 300000
+
+  c4:
+    image: anrg/swarmdag
+    volumes: {"./build": "/tendermint:Z"}
+    expose: [26656, 26657]
+    # links:
+    #   c1: master
+    ports:
+      {26656: 26656, 26657: 26657}
+    environment: 
+      "ID": 3
+      "LOG": "${LOG:-tendermint.log}"
+    command: /bin/sleep 300000
 
 network:
   flaky: 30%
